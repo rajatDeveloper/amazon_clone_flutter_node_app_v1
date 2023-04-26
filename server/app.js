@@ -1,31 +1,24 @@
-const express = require("express")
-
+const express = require("express");
 
 const dotenv = require("dotenv");
-dotenv.config({ path: "config/config.env" })
-const app    = express();
-
+dotenv.config({ path: "config/config.env" });
+const app = express();
 
 app.use(express.json());
 
+//all routes
 
+const authRoute = require("./routes/authRoutes.js");
 
-
-//all routes 
-
-const authRoute = require("./routes/authRoutes.js")
-
-
-
-app.use("/api/auth" , authRoute);
+app.use("/api/auth", authRoute);
 
 app.use((err, req, res, next) => {
-    const errorStatus = err.status || 500;
-    const errorMessage = err.message || "error ! max unknown ! "
+  const errorStatus = err.status || 500;
+  const errorMessage = err.message || "error ! max unknown ! ";
 
-    return res.status(errorStatus).send({
-        message: errorMessage
-    })
-})
+  return res.status(errorStatus).send({
+    message: errorMessage,
+  });
+});
 
-module.exports = app 
+module.exports = app;
