@@ -1,3 +1,4 @@
+import 'package:amazon_clone_nodejs/common/widgets/bottom_navbar.dart';
 import 'package:amazon_clone_nodejs/constants/global_variables.dart';
 import 'package:amazon_clone_nodejs/features/auth/screens/auth_screen.dart';
 import 'package:amazon_clone_nodejs/features/auth/services/auth_service.dart';
@@ -49,8 +50,8 @@ class _MyAppState extends State<MyApp> {
         ),
         onGenerateRoute: (settings) => genrateRoute(settings),
         home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-            ? const HomeScreen()
+            ? BottomBar()
             : AuthScreen());
   }
 }
-//3: 24
+//3: 37

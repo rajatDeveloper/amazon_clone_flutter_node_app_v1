@@ -13,5 +13,5 @@ const router = express.Router();
 router.route("/signup").post(signUp);
 router.route("/signin").post(signin);
 router.route("/token").post(tokenCheck);
-router.route("/getUserData").get( auth, getUserData)
+router.route("/getUserData").get(auth, getUserData);
 module.exports = router;

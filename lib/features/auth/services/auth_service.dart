@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:amazon_clone_nodejs/common/widgets/bottom_navbar.dart';
 import 'package:amazon_clone_nodejs/features/home/screens/home_screen.dart';
 import 'package:amazon_clone_nodejs/providers/user_provider.dart';
 import 'package:provider/provider.dart';
@@ -46,6 +47,7 @@ class AuthService {
           response: res,
           context: context,
           onSuccess: () => {showSnackBar(context, "Account created ! ")});
+          
     } catch (e) {
       showSnackBar(context, e.toString());
     }
@@ -78,7 +80,7 @@ class AuthService {
                 'x-auth-token', jsonDecode(res.body)["token"]);
 
             Navigator.pushNamedAndRemoveUntil(
-                context, HomeScreen.routename, (route) => false);
+                context, BottomBar.routename, (route) => false);
           });
     } catch (e) {
       showSnackBar(context, e.toString());
