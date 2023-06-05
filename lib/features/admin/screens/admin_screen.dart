@@ -1,18 +1,15 @@
 import 'package:amazon_clone_nodejs/constants/global_variables.dart';
-import 'package:amazon_clone_nodejs/features/account/screen/account-screen_view.dart';
-import 'package:amazon_clone_nodejs/features/home/screens/home_screen.dart';
+import 'package:amazon_clone_nodejs/features/admin/screens/post_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:badges/badges.dart' as badges;
 
-class BottomBar extends StatefulWidget {
-  static const String routename = '/bottombar';
-  BottomBar({Key? key}) : super(key: key);
+class AdminScreen extends StatefulWidget {
+  AdminScreen({Key? key}) : super(key: key);
 
   @override
-  State<BottomBar> createState() => _BottomBarState();
+  State<AdminScreen> createState() => _AdminScreenState();
 }
 
-class _BottomBarState extends State<BottomBar> {
+class _AdminScreenState extends State<AdminScreen> {
   int _page = 0;
   double bottomNavBarWidth = 42;
   double bottomNavBarBorderWidth = 5;
@@ -24,8 +21,8 @@ class _BottomBarState extends State<BottomBar> {
   }
 
   List<Widget> pages = [
-    const HomeScreen(),
-    const AccountScreen(),
+    PostScreen(),
+    const Text("Account"),
     const Center(
       child: Text("Cart"),
     ),
@@ -35,6 +32,35 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: pages[_page],
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(50),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: GlobalVariables.appBarGradient,
+            ),
+          ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                alignment: Alignment.topLeft,
+                child: Image.asset(
+                  "assets/images/amazon_in.png",
+                  width: 120,
+                  height: 45,
+                  color: Colors.black,
+                ),
+              ),
+              const Text(
+                "Admin",
+                style:
+                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              )
+            ],
+          ),
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _page,
         selectedItemColor: GlobalVariables.selectedNavBarColor,
@@ -71,26 +97,19 @@ class _BottomBarState extends State<BottomBar> {
                 child: const Icon(Icons.person_outline_outlined),
               ),
               label: ''),
-          //cart
           BottomNavigationBarItem(
               icon: Container(
-                  width: bottomNavBarWidth,
-                  decoration: BoxDecoration(
-                      border: Border(
-                          top: BorderSide(
-                              color: _page == 2
-                                  ? GlobalVariables.selectedNavBarColor
-                                  : GlobalVariables.backgroundColor,
-                              width: bottomNavBarBorderWidth))),
-                  child: const badges.Badge(
-                    badgeStyle: badges.BadgeStyle(badgeColor: Colors.white),
-                    badgeContent: Text(
-                      '1',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    child: Icon(Icons.shopping_cart_outlined),
-                  )),
-              label: '')
+                width: bottomNavBarWidth,
+                decoration: BoxDecoration(
+                    border: Border(
+                        top: BorderSide(
+                            color: _page == 2
+                                ? GlobalVariables.selectedNavBarColor
+                                : GlobalVariables.backgroundColor,
+                            width: bottomNavBarBorderWidth))),
+                child: const Icon(Icons.person_outline_outlined),
+              ),
+              label: ''),
         ],
       ),
     );

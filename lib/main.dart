@@ -1,8 +1,9 @@
 import 'package:amazon_clone_nodejs/common/widgets/bottom_navbar.dart';
 import 'package:amazon_clone_nodejs/constants/global_variables.dart';
+import 'package:amazon_clone_nodejs/features/admin/screens/admin_screen.dart';
 import 'package:amazon_clone_nodejs/features/auth/screens/auth_screen.dart';
 import 'package:amazon_clone_nodejs/features/auth/services/auth_service.dart';
-import 'package:amazon_clone_nodejs/features/home/screens/home_screen.dart';
+
 import 'package:amazon_clone_nodejs/providers/user_provider.dart';
 import 'package:amazon_clone_nodejs/utils/router.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     authService.getUserData(context);
   }
@@ -50,10 +50,12 @@ class _MyAppState extends State<MyApp> {
         ),
         onGenerateRoute: (settings) => genrateRoute(settings),
         home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-            ? BottomBar()
+            ? Provider.of<UserProvider>(context).user.type == 'user'
+                ? BottomBar()
+                : AdminScreen()
             : AuthScreen());
   }
 }
 
 
-//3: 37
+//4:4 

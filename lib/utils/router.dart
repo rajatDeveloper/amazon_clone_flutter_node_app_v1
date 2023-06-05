@@ -1,4 +1,5 @@
 import 'package:amazon_clone_nodejs/common/widgets/bottom_navbar.dart';
+import 'package:amazon_clone_nodejs/features/admin/screens/add_products.dart';
 import 'package:amazon_clone_nodejs/features/auth/screens/auth_screen.dart';
 import 'package:amazon_clone_nodejs/features/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,9 @@ Route<dynamic> genrateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         builder: (_) => HomeScreen(),
       );
+
+    case AddProducts.routeName:
+      return MaterialPageRoute(builder: (_) => AddProducts());
     case BottomBar.routename:
       return MaterialPageRoute(builder: (_) => BottomBar());
     default:
