@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
-const User = require("../models/user");
+const userModel = require("../models/userModel");
+
 
 const admin = async (req, res, next) => {
   try {
@@ -12,7 +13,9 @@ const admin = async (req, res, next) => {
       return res
         .status(401)
         .json({ msg: "Token verification failed, authorization denied." });
-    const user = await User.findById(verified.id);
+
+    const user = await userModel.findById(verified.id);
+
     if (user.type == "user" || user.type == "seller") {
       return res.status(401).json({ msg: "You are not an admin!" });
     }
