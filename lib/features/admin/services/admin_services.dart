@@ -23,6 +23,7 @@ class AdminServices {
   }) async {
     final userProovider = Provider.of<UserProvider>(context, listen: false);
     try {
+
       final cloudinary = CloudinaryPublic("dok1rnajd", "hvvbmigt");
       List<String> imageUrls = [];
       for (int i = 0; i < images.length; i++) {
@@ -52,6 +53,7 @@ class AdminServices {
         },
         body: product.toJson(),
       );
+
       httpErrorHandle(
           response: res,
           context: context,
@@ -66,8 +68,7 @@ class AdminServices {
 
   //get all products
   Future<List<Product>> fetchAllProducts({
-    required Build
-    Context context,
+    required BuildCoContext context,
   }) async {
     final userProovider = Provider.of<UserProvider>(context, listen: false);
     List<Product> productList = [];
