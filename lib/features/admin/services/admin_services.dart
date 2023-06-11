@@ -68,7 +68,7 @@ class AdminServices {
 
   //get all products
   Future<List<Product>> fetchAllProducts({
-    required BuildCoContext context,
+      required BuildContext context
   }) async {
     final userProovider = Provider.of<UserProvider>(context, listen: false);
     List<Product> productList = [];
