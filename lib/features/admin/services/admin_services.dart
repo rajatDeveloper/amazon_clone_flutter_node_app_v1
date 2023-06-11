@@ -26,6 +26,7 @@ class AdminServices {
 
       final cloudinary = CloudinaryPublic("dok1rnajd", "hvvbmigt");
       List<String> imageUrls = [];
+
       for (int i = 0; i < images.length; i++) {
         final response = await cloudinary.uploadFile(
           CloudinaryFile.fromFile(images[i].path,
@@ -75,11 +76,13 @@ class AdminServices {
     try {
       http.Response res = await http.get(
         Uri.parse("$uri/admin/get-products"),
+
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProovider.user.token,
         },
       );
+
 
       httpErrorHandle(
           response: res,
@@ -95,4 +98,6 @@ class AdminServices {
     }
     return productList;
   }
+
+
 }

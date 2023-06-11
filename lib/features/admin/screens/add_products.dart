@@ -63,6 +63,7 @@ class _AddProductsState extends State<AddProducts> {
         category: category,
         images: files,
       );
+      
     }
   }
 
