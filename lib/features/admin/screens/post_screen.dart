@@ -1,4 +1,5 @@
 import 'package:amazon_clone_nodejs/constants/loader.dart';
+import 'package:amazon_clone_nodejs/constants/utils.dart';
 import 'package:amazon_clone_nodejs/features/account/widgets/single_product.dart';
 import 'package:amazon_clone_nodejs/features/admin/screens/add_products.dart';
 import 'package:amazon_clone_nodejs/features/admin/services/admin_services.dart';
@@ -15,6 +16,7 @@ class PostScreen extends StatefulWidget {
 class _PostScreenState extends State<PostScreen> {
   List<Product>? products = [];
   final AdminServices adminServices = AdminServices();
+
   void navigateToAddProductScreen() {
     Navigator.pushNamed(context, AddProducts.routeName);
   }
@@ -24,12 +26,24 @@ class _PostScreenState extends State<PostScreen> {
     // TODO: implement initState
     super.initState();
     fetchAllProducts();
+    setState(() {});
+  }
+
+  void deleteProduct(Product product, int index) {
+    adminServices.deleteProduct(
+        context: context,
+        product: product,
+        onSuccess: () {
+          products!.remove(index);
+
+          setState(() {});
+
+          showSnackBar(context, "Product Deleted Successfully");
+        });
   }
 
   fetchAllProducts() async {
     products = await adminServices.fetchAllProducts(context: context);
-    setState(() {});
-    // print("$products!.length  - length");
   }
 
   @override
@@ -74,7 +88,10 @@ class _PostScreenState extends State<PostScreen> {
                               overflow: TextOverflow.ellipsis,
                             )),
                             IconButton(
-                                onPressed: () {}, icon: Icon(Icons.delete))
+                                onPressed: () {
+                                  deleteProduct(productData, index);
+                                },
+                                icon: Icon(Icons.delete))
                           ],
                         )
                       ],

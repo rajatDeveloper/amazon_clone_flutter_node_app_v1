@@ -32,3 +32,16 @@ exports.getProducts = async (req, res, next) => {
     });
   }
 };
+
+exports.deleteProduct = async (req, res, next) => {
+  try {
+    const { id } = req.body;
+    let product = await productModel.findByIdAndDelete(id);
+
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({
+      error: error.message,
+    });
+  }
+};

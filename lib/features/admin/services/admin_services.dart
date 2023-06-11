@@ -23,7 +23,6 @@ class AdminServices {
   }) async {
     final userProovider = Provider.of<UserProvider>(context, listen: false);
     try {
-
       final cloudinary = CloudinaryPublic("dok1rnajd", "hvvbmigt");
       List<String> imageUrls = [];
 
@@ -68,21 +67,18 @@ class AdminServices {
   }
 
   //get all products
-  Future<List<Product>> fetchAllProducts({
-      required BuildContext context
-  }) async {
+  Future<List<Product>> fetchAllProducts(
+      {required BuildContext context}) async {
     final userProovider = Provider.of<UserProvider>(context, listen: false);
     List<Product> productList = [];
     try {
       http.Response res = await http.get(
         Uri.parse("$uri/admin/get-products"),
-
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProovider.user.token,
         },
       );
-
 
       httpErrorHandle(
           response: res,
@@ -99,5 +95,33 @@ class AdminServices {
     return productList;
   }
 
+  //delete product
+  void deleteProduct(
+      {required BuildContext context,
+      required Product product,
+      required VoidCallback onSuccess}) async {
+    try {
+      final userProovider = Provider.of<UserProvider>(context, listen: false);
 
+      http.Response res = await http.post(
+        Uri.parse(
+          "$uri/admin/delete-product",
+        ),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProovider.user.token,
+        },
+        body: jsonEncode({'id': product.id}),
+      );
+
+      httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            onSuccess();
+          });
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
 }
