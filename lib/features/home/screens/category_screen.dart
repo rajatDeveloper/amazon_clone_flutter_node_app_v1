@@ -1,4 +1,6 @@
 import 'package:amazon_clone_nodejs/constants/global_variables.dart';
+import 'package:amazon_clone_nodejs/features/home/service/home_service.dart';
+import 'package:amazon_clone_nodejs/models/product.dart';
 import 'package:flutter/material.dart';
 
 class CategoryScreen extends StatefulWidget {
@@ -11,6 +13,22 @@ class CategoryScreen extends StatefulWidget {
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
+  HomeServices homeServices = HomeServices();
+  List<Product>? productList ;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    homeServices
+        .fetchAllProductsCategory(context: context, category: widget.category)
+        .then((value) {
+      setState(() {
+        productList = value;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +57,20 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-          )
+          ),
+          SizedBox(
+              height: 170,
+              child: GridView.builder(
+                  padding: EdgeInsets.only(left: 15),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 10,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      mainAxisSpacing: 10,
+                      crossAxisCount: 1,
+                      childAspectRatio: 1.4),
+                  itemBuilder: (context, index) {
+                    return Text("data");
+                  })),
         ]),
       ),
     );
