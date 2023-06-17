@@ -44,8 +44,11 @@ Route<dynamic> genrateRoute(RouteSettings routeSettings) {
                 category: category,
               ));
     case AddressScreen.routeName:
-      // var category = routeSettings.arguments as String;
-      return MaterialPageRoute(builder: (_) => AddressScreen());
+      var data = routeSettings.arguments as String;
+      return MaterialPageRoute(
+          builder: (_) => AddressScreen(
+                totalAmount: data,
+              ));
     default:
       return MaterialPageRoute(
         builder: (_) => Scaffold(

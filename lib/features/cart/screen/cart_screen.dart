@@ -25,6 +25,11 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     final user = context.watch<UserProvider>().user;
+
+    int sum = 0;
+    user.cart
+        .map((e) => sum += e['quantity'] * e['product']['price'] as int)
+        .toList();
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -102,7 +107,8 @@ class _CartScreenState extends State<CartScreen> {
                   bgColor: Colors.yellow[600],
                   text: "Proceed to Buy (${user.cart.length})",
                   onTap: () {
-                    Navigator.pushNamed(context, AddressScreen.routeName);
+                    Navigator.pushNamed(context, AddressScreen.routeName,
+                        arguments: sum.toString());
                   }),
             ),
             SizedBox(
