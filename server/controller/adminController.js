@@ -1,4 +1,4 @@
-const productModel = require("../models/productModel");
+const { Product } = require("../models/productModel");
 
 exports.postProduct = async (req, res, next) => {
   try {
@@ -23,7 +23,7 @@ exports.postProduct = async (req, res, next) => {
 
 exports.getProducts = async (req, res, next) => {
   try {
-    const products = await productModel.find({});
+    const products = await Product.find({});
 
     res.status(200).json(products);
   } catch (error) {
@@ -36,7 +36,7 @@ exports.getProducts = async (req, res, next) => {
 exports.deleteProduct = async (req, res, next) => {
   try {
     const { id } = req.body;
-    let product = await productModel.findByIdAndDelete(id);
+    let product = await Product.findByIdAndDelete(id);
 
     res.status(200).json(product);
   } catch (error) {

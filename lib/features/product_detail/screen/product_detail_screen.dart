@@ -1,11 +1,14 @@
 import 'package:amazon_clone_nodejs/common/widgets/custom_button.dart';
 import 'package:amazon_clone_nodejs/common/widgets/star.dart';
 import 'package:amazon_clone_nodejs/constants/global_variables.dart';
+import 'package:amazon_clone_nodejs/features/product_detail/services/productdetail_service.dart';
 import 'package:amazon_clone_nodejs/features/search/screen/search_screen.dart';
 import 'package:amazon_clone_nodejs/models/product.dart';
+import 'package:amazon_clone_nodejs/providers/user_provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   ProductDetailScreen({Key? key, required this.product}) : super(key: key);
@@ -19,6 +22,45 @@ class ProductDetailScreen extends StatefulWidget {
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   void navigateToSerachScreen(String query) {
     Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
+  }
+
+  double avgRating = 0;
+  double myRating = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    double totalRating = 0;
+    if (widget.product.rating != null) {
+      for (int i = 0; i < widget.product.rating!.length; i++) {
+        totalRating += widget.product.rating![i].rating;
+        if (widget.product.rating![i].userId ==
+            Provider.of<UserProvider>(context, listen: false).user.id) {
+          myRating = widget.product.rating![i].rating;
+        }
+      }
+      if (totalRating != 0) {
+        avgRating = totalRating / widget.product.rating!.length;
+      }
+    }
+  }
+
+  ProductDetailService productDetailService = ProductDetailService();
+
+  void addToCart(Product product) {
+    productDetailService.addToCart(
+      context: context,
+      product: product,
+    );
+  }
+
+  void addRating(double rating, Product product) {
+    productDetailService.rateProduct(
+      context: context,
+      product: product,
+      rating: rating,
+    );
   }
 
   @override
@@ -98,7 +140,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Text(widget.product.id!), Star(rating: 4)],
+                children: [Text(widget.product.id!), Star(rating: avgRating)],
               ),
             ),
             Padding(
@@ -172,7 +214,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               padding: const EdgeInsets.all(10.0),
               child: CustomButton(
                 text: "Add to Cart",
-                onTap: () {},
+                onTap: () {
+                  addToCart(widget.product);
+                },
                 bgColor: const Color.fromRGBO(254, 216, 19, 1),
               ),
             ),
@@ -195,15 +239,17 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             ),
             RatingBar.builder(
               itemCount: 5,
-              initialRating: 2.2,
+              initialRating: myRating,
               allowHalfRating: true,
-              itemPadding: EdgeInsets.all(5),
+              itemPadding: const EdgeInsets.all(5),
               minRating: 1,
               itemBuilder: (context, _) => const Icon(
                 Icons.star,
                 color: GlobalVariables.secondaryColor,
               ),
-              onRatingUpdate: (val) {},
+              onRatingUpdate: (val) {
+                addRating(val, widget.product);
+              },
             )
           ],
         ),

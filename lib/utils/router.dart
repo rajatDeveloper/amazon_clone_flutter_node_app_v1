@@ -1,4 +1,5 @@
 import 'package:amazon_clone_nodejs/common/widgets/bottom_navbar.dart';
+import 'package:amazon_clone_nodejs/features/address/screen/adress_screen.dart';
 import 'package:amazon_clone_nodejs/features/admin/screens/add_products.dart';
 import 'package:amazon_clone_nodejs/features/auth/screens/auth_screen.dart';
 import 'package:amazon_clone_nodejs/features/home/screens/category_screen.dart';
@@ -31,7 +32,7 @@ Route<dynamic> genrateRoute(RouteSettings routeSettings) {
                 searchQueary: searchQueary,
               ));
     case ProductDetailScreen.routeName:
-      Product product = routeSettings.arguments as Product ;
+      Product product = routeSettings.arguments as Product;
       return MaterialPageRoute(
           builder: (_) => ProductDetailScreen(
                 product: product,
@@ -42,6 +43,9 @@ Route<dynamic> genrateRoute(RouteSettings routeSettings) {
           builder: (_) => CategoryScreen(
                 category: category,
               ));
+    case AddressScreen.routeName:
+      // var category = routeSettings.arguments as String;
+      return MaterialPageRoute(builder: (_) => AddressScreen());
     default:
       return MaterialPageRoute(
         builder: (_) => Scaffold(

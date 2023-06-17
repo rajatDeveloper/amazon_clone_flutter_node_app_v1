@@ -21,6 +21,7 @@ class AuthService {
       required String name}) async {
     try {
       User user = User(
+          cart: [],
           id: '',
           name: name,
           password: password,

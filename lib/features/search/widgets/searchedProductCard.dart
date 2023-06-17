@@ -6,8 +6,19 @@ import 'package:flutter/material.dart';
 class SearchProductCard extends StatelessWidget {
   const SearchProductCard({Key? key, required this.product}) : super(key: key);
   final Product product;
+
   @override
   Widget build(BuildContext context) {
+    double avgRating = 0;
+    double totalRating = 0;
+    if (product.rating != null) {
+      for (int i = 0; i < product.rating!.length; i++) {
+        totalRating += product.rating![i].rating;
+      }
+      if (totalRating != 0) {
+        avgRating = totalRating / product.rating!.length;
+      }
+    }
     return InkWell(
       onTap: () {
         Navigator.pushNamed(context, ProductDetailScreen.routeName,
@@ -23,7 +34,7 @@ class SearchProductCard extends StatelessWidget {
                   product.images[0],
                   height: 135,
                   width: 135,
-                  fit: BoxFit.fitWidth,
+                  fit: BoxFit.contain,
                 ),
                 Column(
                   children: [
@@ -43,7 +54,7 @@ class SearchProductCard extends StatelessWidget {
                     Container(
                         padding: const EdgeInsets.only(left: 10, top: 5),
                         width: 200,
-                        child: Star(rating: 3)),
+                        child: Star(rating: avgRating)),
                     Container(
                       padding: const EdgeInsets.only(left: 10, top: 5),
                       width: 200,
