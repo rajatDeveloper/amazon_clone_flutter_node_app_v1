@@ -49,18 +49,20 @@ class _AddressScreenState extends State<AddressScreen> {
   String addressToBeUsed = "";
   List<PaymentItem> paymentItems = [];
   final AddressServices addressServices = AddressServices();
+
   void onGooglePayResult(res) {
     if (Provider.of<UserProvider>(context, listen: false)
         .user
         .address
         .isEmpty) {
-      addressServices.saveUserAddress(context: context, address:addressToBeUsed);
-      
-      // addressServices.placeOrder(
-      //   context: context,
-      //   address: addressToBeUsed,
-      //   totalSum: double.parse(widget.totalAmount),
-      // );
+      addressServices.saveUserAddress(
+          context: context, address: addressToBeUsed);
+
+      addressServices.placeOrder(
+        context: context,
+        address: addressToBeUsed,
+        totalSum: double.parse(widget.totalAmount),
+      );
     }
   }
 

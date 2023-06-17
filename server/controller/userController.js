@@ -1,4 +1,5 @@
 const { Product } = require("../models/productModel");
+const { Order } = require("../models/orderModel");
 
 const User = require("../models/userModel");
 
@@ -85,6 +86,7 @@ exports.placeOrder = async (req, res, next) => {
 
     for (let i = 0; i < cart.length; i++) {
       let product = await Product.findById(cart[i].product._id);
+
       if (product.quantity >= cart[i].quantity) {
         product.quantity -= cart[i].quantity;
         products.push({ product, quantity: cart[i].quantity });
@@ -112,4 +114,13 @@ exports.placeOrder = async (req, res, next) => {
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
-}
+};
+
+exports.myOrders = async (req, res, next) => {
+  try {
+    const orders = await Order.find({ userId: req.user });
+    res.json(orders);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+};

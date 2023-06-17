@@ -4,8 +4,10 @@ import 'package:amazon_clone_nodejs/features/admin/screens/add_products.dart';
 import 'package:amazon_clone_nodejs/features/auth/screens/auth_screen.dart';
 import 'package:amazon_clone_nodejs/features/home/screens/category_screen.dart';
 import 'package:amazon_clone_nodejs/features/home/screens/home_screen.dart';
+import 'package:amazon_clone_nodejs/features/order_detail/screen/order_detail_screen.dart';
 import 'package:amazon_clone_nodejs/features/product_detail/screen/product_detail_screen.dart';
 import 'package:amazon_clone_nodejs/features/search/screen/search_screen.dart';
+import 'package:amazon_clone_nodejs/models/order.dart';
 import 'package:amazon_clone_nodejs/models/product.dart';
 import 'package:flutter/material.dart';
 
@@ -48,6 +50,12 @@ Route<dynamic> genrateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
           builder: (_) => AddressScreen(
                 totalAmount: data,
+              ));
+    case OrderDetailScreen.routeName:
+      var data = routeSettings.arguments as Order;
+      return MaterialPageRoute(
+          builder: (_) => OrderDetailScreen(
+                order: data,
               ));
     default:
       return MaterialPageRoute(

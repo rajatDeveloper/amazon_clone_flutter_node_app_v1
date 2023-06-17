@@ -26,7 +26,6 @@ class _PostScreenState extends State<PostScreen> {
     // TODO: implement initState
     super.initState();
     fetchAllProducts();
-    setState(() {});
   }
 
   void deleteProduct(Product product, int index) {
@@ -44,6 +43,7 @@ class _PostScreenState extends State<PostScreen> {
 
   fetchAllProducts() async {
     products = await adminServices.fetchAllProducts(context: context);
+    setState(() {});
   }
 
   @override

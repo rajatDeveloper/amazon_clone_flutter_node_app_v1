@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-const {Schema} = require("mongoose");
+const { Schema } = require("mongoose");
 
-const ratingSchema =new  Schema({
+const ratingSchema = new Schema({
   userId: {
     type: String,
     required: true,
@@ -12,5 +12,4 @@ const ratingSchema =new  Schema({
   },
 });
 
-module.exports = ratingSchema ; 
-
+module.exports = ratingSchema;

@@ -1,4 +1,6 @@
 import 'package:amazon_clone_nodejs/constants/global_variables.dart';
+import 'package:amazon_clone_nodejs/features/admin/screens/admin_order_screen.dart';
+import 'package:amazon_clone_nodejs/features/admin/screens/anaystic_screen.dart';
 import 'package:amazon_clone_nodejs/features/admin/screens/post_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -22,10 +24,8 @@ class _AdminScreenState extends State<AdminScreen> {
 
   List<Widget> pages = [
     PostScreen(),
-    const Text("Account"),
-    const Center(
-      child: Text("Cart"),
-    ),
+    AnalyticsScreen(),
+    AdminOrderScreen(),
   ];
 
   @override
@@ -94,7 +94,7 @@ class _AdminScreenState extends State<AdminScreen> {
                                 ? GlobalVariables.selectedNavBarColor
                                 : GlobalVariables.backgroundColor,
                             width: bottomNavBarBorderWidth))),
-                child: const Icon(Icons.person_outline_outlined),
+                child: const Icon(Icons.analytics),
               ),
               label: ''),
           BottomNavigationBarItem(
@@ -107,7 +107,7 @@ class _AdminScreenState extends State<AdminScreen> {
                                 ? GlobalVariables.selectedNavBarColor
                                 : GlobalVariables.backgroundColor,
                             width: bottomNavBarBorderWidth))),
-                child: const Icon(Icons.person_outline_outlined),
+                child: const Icon(Icons.cases_outlined),
               ),
               label: ''),
         ],
