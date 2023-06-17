@@ -8,7 +8,8 @@ import 'package:pay/pay.dart';
 
 class AddressScreen extends StatefulWidget {
   static const String routeName = '/address';
-  AddressScreen({Key? key}) : super(key: key);
+  final String tottalAmount; 
+  AddressScreen({Key? key , required this.}) : super(key: key);
 
   @override
   State<AddressScreen> createState() => _AddressScreenState();
